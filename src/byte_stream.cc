@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-ByteStream::ByteStream( uint64_t capacity ) : capacity_( capacity ), buf_(capacity_ << 1, ' '), st_(0), cur_sz_(0) {}
+ByteStream::ByteStream( uint64_t capacity ) : capacity_( capacity ), buf_(capacity_ << 1, 0), st_(0), cur_sz_(0) {}
 
 void Writer::push( string data ){
   uint64_t incr_ = min(data.size(), capacity_ - cur_sz_);

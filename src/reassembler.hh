@@ -2,11 +2,20 @@
 
 #include "byte_stream.hh"
 
+struct valp{
+  uint64_t key_;
+  std::string data_;
+  
+  valp(uint64_t key, const std::string& data):key_(key), data_(data) {}
+  bool operator<(const valp& b) const { return key_ > b.key_; }
+};
+
 class Reassembler
 {
 public:
   // Construct Reassembler to write into given ByteStream.
-  explicit Reassembler( ByteStream&& output ) : output_( std::move( output ) ) {}
+  // Notice: Under the consumption of stable capacity 
+  explicit Reassembler( ByteStream&& output ) : output_( std::move( output ) ){}
 
   /*
    * Insert a new substring to be reassembled into a ByteStream.
@@ -42,5 +51,7 @@ public:
   const Writer& writer() const { return output_.writer(); }
 
 private:
+  std::priority_queue<valp> data_ {};
+  uint64_t last_str_idx = static_cast<uint64_t>(-1);
   ByteStream output_;
 };
