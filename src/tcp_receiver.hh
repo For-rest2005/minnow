@@ -27,4 +27,8 @@ public:
 
 private:
   Reassembler reassembler_;
+  Wrap32 zero_point_ { 0 };
+  bool RST_ {};
+  bool SYN_ {};
+  bool FIN_ {};
 };

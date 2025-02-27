@@ -50,6 +50,9 @@ public:
   // Access output stream writer, but const-only (can't write from outside)
   const Writer& writer() const { return output_.writer(); }
 
+  bool has_error() const { return output_.has_error(); }
+  void set_error() { output_.set_error(); }
+
 private:
   std::priority_queue<valp> data_ {};
   uint64_t last_str_idx = static_cast<uint64_t>(-1);
